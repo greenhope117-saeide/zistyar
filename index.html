@@ -1,26 +1,348 @@
-نسخهٔ کامل و نهایی آماده شد:
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>زیست‌یار</title>
 
-📄 **دانلود بازی زیست‌یار**
-[زیست_یار_نسخه_نهایی.html](sandbox:/mnt/data/زیست_یار_نسخه_نهایی.html)
+<style>
+body{
+margin:0;
+font-family:tahoma;
+background:linear-gradient(135deg,#43cea2,#185a9d);
+}
 
-ویژگی‌ها:
+.page{
+min-height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+padding:20px;
+}
 
-* 🎮 نام بازی: **زیست‌یار**
-* 👩‍🏫 دبیر: **سرکار خانم معصومه مرتجایی**
-* 🏫 مدرسه **فرزانگان ۱ شهریار**
-* 🚀 صفحهٔ شروع اختصاصی
-* 🧩 بازی کشیدن و رها کردن (Drag & Drop)
-* ⭐ امتیازدهی
-* ⏱️ تایمر ۳ دقیقه‌ای
-* 🥇🥈🥉 مدال پایانی براساس عملکرد
-* 📜 صفحهٔ گواهی پایان بازی
+.card{
+background:white;
+padding:25px;
+border-radius:25px;
+max-width:1000px;
+width:100%;
+box-shadow:0 10px 25px rgba(0,0,0,.2);
+}
 
-برای ارسال در شاد، پیشنهاد می‌کنم آن را روی GitHub Pages منتشر کنی و فقط لینک را برای دانش‌آموزان بفرستی. اگر خواستی، می‌توانم مرحله‌به‌مرحله کنار تو پیش بروم؛ از ساخت مخزن GitHub تا گرفتن لینک نهایی. همچنین می‌توانم نسخهٔ بعدی را با:
+h1,h2,h3,p{
+text-align:center;
+}
 
-* لوگوی مدرسه،
-* تصاویر کارتونی جانداران،
-* صداهای درست/غلط،
-* چند مرحلهٔ مختلف،
-* و ثبت نام دانش‌آموز روی گواهی پایان بازی
+.hidden{
+display:none;
+}
 
-طراحی کنم.
+button{
+padding:12px 24px;
+border:none;
+border-radius:12px;
+font-size:18px;
+cursor:pointer;
+}
+
+input{
+padding:10px;
+border-radius:10px;
+border:1px solid #ccc;
+font-size:16px;
+}
+
+.wrap{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+}
+
+.zone{
+border:3px dashed #888;
+border-radius:15px;
+padding:10px;
+min-height:220px;
+}
+
+.cards{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+justify-content:center;
+margin-top:20px;
+}
+
+.item{
+background:#ffd166;
+padding:10px;
+border-radius:10px;
+cursor:grab;
+font-weight:bold;
+}
+
+.correct{
+background:#b7efc5;
+}
+
+.info{
+text-align:center;
+font-size:22px;
+margin:10px;
+}
+
+.badge{
+font-size:70px;
+text-align:center;
+}
+
+@media(max-width:700px){
+.wrap{
+grid-template-columns:1fr;
+}
+}
+</style>
+</head>
+
+<body>
+
+<div id="start" class="page">
+
+<div class="card">
+
+<h1>🎮 زیست‌یار</h1>
+
+<h2>👩‍🏫 دبیر: سرکار خانم معصومه مرتجایی</h2>
+
+<h2>🏫 مدرسه فرزانگان ۱ شهریار</h2>
+
+<p>نام خود را وارد کنید</p>
+
+<div style="text-align:center">
+
+<input id="student" placeholder="نام دانش‌آموز">
+
+<button onclick="startGame()">شروع بازی</button>
+
+</div>
+
+</div>
+
+</div>
+
+<div id="game" class="page hidden">
+
+<div class="card">
+
+<div class="info">
+⏱️ <span id="time">180</span>
+&nbsp;&nbsp;
+⭐ <span id="score">0</span>/8
+</div>
+
+<div class="wrap">
+
+<div class="zone" data-type="همیاری">
+<h3>🤝 همیاری</h3>
+</div>
+
+<div class="zone" data-type="همسفرگی">
+<h3>🍽️ همسفرگی</h3>
+</div>
+
+<div class="zone" data-type="انگلی">
+<h3>🪱 انگلی</h3>
+</div>
+
+</div>
+
+<div class="cards" id="cards"></div>
+
+<div style="text-align:center;margin-top:20px;">
+<button onclick="finishGame()">پایان بازی</button>
+</div>
+
+</div>
+
+</div>
+
+<div id="finish" class="page hidden">
+
+<div class="card">
+
+<div id="medal" class="badge">🥉</div>
+
+<h1>گواهی پایان بازی</h1>
+
+<p id="finalText"></p>
+
+</div>
+
+</div>
+
+<script>
+
+const items=[
+
+["مورچه و شته","همیاری"],
+
+["زنبور و گل","همیاری"],
+
+["میگوی تمیزکننده و کوسه","همیاری"],
+
+["گلسنگ","همیاری"],
+
+["باکتری روده و انسان","همیاری"],
+
+["شیر و کفتار","همسفرگی"],
+
+["ماهی کوچک و کوسه","همسفرگی"],
+
+["کرمک و انسان","انگلی"]
+
+];
+
+let score=0;
+
+let timer=180;
+
+let clock;
+
+let studentName="";
+
+items.sort(()=>Math.random()-0.5);
+
+items.forEach((it,i)=>{
+
+let d=document.createElement("div");
+
+d.className="item";
+
+d.id="c"+i;
+
+d.draggable=true;
+
+d.dataset.type=it[1];
+
+d.textContent=it[0];
+
+d.addEventListener("dragstart",
+
+e=>e.dataTransfer.setData("text",d.id));
+
+document.getElementById("cards").appendChild(d);
+
+});
+
+document.querySelectorAll(".zone").forEach(z=>{
+
+z.addEventListener("dragover",
+
+e=>e.preventDefault());
+
+z.addEventListener("drop",e=>{
+
+e.preventDefault();
+
+const el=document.getElementById(
+
+e.dataTransfer.getData("text"));
+
+if(el.dataset.type===z.dataset.type){
+
+if(!el.classList.contains("correct")){
+
+score++;
+
+document.getElementById("score").textContent=score;
+
+}
+
+el.classList.add("correct");
+
+z.appendChild(el);
+
+}else{
+
+alert("❌ پاسخ نادرست");
+
+}
+
+});
+
+});
+
+function startGame(){
+
+studentName=
+
+document.getElementById("student").value ||
+
+"دانش‌آموز";
+
+document.getElementById("start")
+
+.classList.add("hidden");
+
+document.getElementById("game")
+
+.classList.remove("hidden");
+
+clock=setInterval(()=>{
+
+timer--;
+
+document.getElementById("time")
+
+.textContent=timer;
+
+if(timer<=0){
+
+finishGame();
+
+}
+
+},1000);
+
+}
+
+function finishGame(){
+
+clearInterval(clock);
+
+document.getElementById("game")
+
+.classList.add("hidden");
+
+document.getElementById("finish")
+
+.classList.remove("hidden");
+
+let medal="🥉";
+
+if(score>=6) medal="🥈";
+
+if(score===8) medal="🥇";
+
+document.getElementById("medal")
+
+.textContent=medal;
+
+document.getElementById("finalText")
+
+.innerHTML=
+
+studentName+
+
+"<br><br>امتیاز شما: <b>"+
+
+score+
+
+" از 8</b>";
+
+}
+
+</script>
+
+</body>
+</html>
