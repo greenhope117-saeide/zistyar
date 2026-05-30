@@ -236,6 +236,28 @@ d.draggable=true;
 
 d.dataset.type=it[1];
 
+const imgs={
+"مورچه و شته":"ant.jpg",
+"زنبور و گل":"bee.jpg",
+"میگوی تمیزکننده و کوسه":"cleaner.webp",
+"گلسنگ":"lichen.webp",
+"باکتری روده و انسان":"gut.jpg",
+"شیر و کفتار":"lion.jpg",
+"ماهی کوچک و کوسه":"shark.jpg",
+"کرمک و انسان":"parasite.jpg"
+};
+
+d.innerHTML=
+`<img src="${imgs[it[0]]}"
+style="width:100%;height:110px;object-fit:cover;border-radius:10px;margin-bottom:8px;">
+<div>${it[0]}</div>`;
+
+d.addEventListener("dragstart",
+e=>e.dataTransfer.setData("text",d.id));
+
+document.getElementById("cards").appendChild(d);
+
+});
 d.innerHTML=`
 <img src="${it[2]}"
 style="
