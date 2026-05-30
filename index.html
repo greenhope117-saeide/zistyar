@@ -196,21 +196,21 @@ grid-template-columns:1fr;
 
 const items=[
 
-["مورچه و شته","همیاری"],
+["مورچه و شته","همیاری","ant.jpg"],
 
-["زنبور و گل","همیاری"],
+["زنبور و گل","همیاری","bee.jpg"],
 
-["میگوی تمیزکننده و کوسه","همیاری"],
+["میگوی تمیزکننده و کوسه","همیاری","cleaner.webp"],
 
-["گلسنگ","همیاری"],
+["گلسنگ","همیاری","lichen.webp"],
 
-["باکتری روده و انسان","همیاری"],
+["باکتری روده و انسان","همیاری","gut.jpg"],
 
-["شیر و کفتار","همسفرگی"],
+["شیر و کفتار","همسفرگی","lion.jpg"],
 
-["ماهی کوچک و کوسه","همسفرگی"],
+["ماهی کوچک و کوسه","همسفرگی","shark.jpg"],
 
-["کرمک و انسان","انگلی"]
+["کرمک و انسان","انگلی","parasite.jpg"]
 
 ];
 
@@ -236,8 +236,19 @@ d.draggable=true;
 
 d.dataset.type=it[1];
 
-d.textContent=it[0];
-
+d.innerHTML=`
+<img src="${it[2]}"
+style="
+width:120px;
+height:90px;
+object-fit:cover;
+border-radius:12px;
+display:block;
+margin:auto;
+margin-bottom:8px;
+">
+<div>${it[0]}</div>
+`;
 d.addEventListener("dragstart",
 
 e=>e.dataTransfer.setData("text",d.id));
