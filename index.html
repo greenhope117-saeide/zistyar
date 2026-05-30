@@ -4,12 +4,15 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>زیست‌یار</title>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 body{
 margin:0;
-font-family:tahoma;
-background:linear-gradient(135deg,#43cea2,#185a9d);
+font-family:'Vazirmatn',sans-serif;
+background:linear-gradient(135deg,#071a2f,#103f5c,#0f766e);
+min-height:100vh;
+color:#fff;
 }
 
 .page{
@@ -74,11 +77,18 @@ margin-top:20px;
 }
 
 .item{
-background:#ffd166;
-padding:10px;
-border-radius:10px;
+background:linear-gradient(45deg,#00c9a7,#00b4d8);
+color:white;
+padding:14px;
+border-radius:16px;
 cursor:grab;
-font-weight:bold;
+font-weight:700;
+box-shadow:0 8px 18px rgba(0,0,0,.25);
+transition:.3s;
+}
+
+.item:hover{
+transform:translateY(-5px);
 }
 
 .correct{
@@ -116,7 +126,9 @@ grid-template-columns:1fr;
 
 <h2>🏫 مدرسه فرزانگان ۱ شهریار</h2>
 
-<p>نام خود را وارد کنید</p>
+<p>
+🧬 به دنیای شگفت‌انگیز روابط بین موجودات زنده خوش آمدید
+</p>
 
 <div style="text-align:center">
 
@@ -332,13 +344,23 @@ document.getElementById("finalText")
 
 .innerHTML=
 
-studentName+
+"🌟 شرکت‌کننده عزیز 🌟"+
 
-"<br><br>امتیاز شما: <b>"+
+"<br><br>"+
 
-score+
+"امتیاز شما: <b>"+score+" از 8</b>"+
 
-" از 8</b>";
+"<br><br>"+
+
+"به پاس موفقیت در بازی آموزشی زیست‌یار"+
+
+"<br>"+
+
+"مدرسه فرزانگان ۱ شهریار"+
+
+"<br>"+
+
+"دبیر: سرکار خانم معصومه مرتجایی";
 
 }
 
