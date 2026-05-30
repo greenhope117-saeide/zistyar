@@ -258,26 +258,7 @@ e=>e.dataTransfer.setData("text",d.id));
 document.getElementById("cards").appendChild(d);
 
 });
-d.innerHTML=`
-<img src="${it[2]}"
-style="
-width:120px;
-height:90px;
-object-fit:cover;
-border-radius:12px;
-display:block;
-margin:auto;
-margin-bottom:8px;
-">
-<div>${it[0]}</div>
-`;
-d.addEventListener("dragstart",
 
-e=>e.dataTransfer.setData("text",d.id));
-
-document.getElementById("cards").appendChild(d);
-
-});
 
 document.querySelectorAll(".zone").forEach(z=>{
 
