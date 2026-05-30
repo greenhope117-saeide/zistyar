@@ -1,341 +1,116 @@
-```html
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>زیست‌یار</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700;800&display=swap" rel="stylesheet">
 <style>
-
-body{
-margin:0;
-font-family:'Vazirmatn',sans-serif;
-background:linear-gradient(135deg,#0f172a,#0f766e);
-}
-
-.page{
-min-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-padding:20px;
-}
-
-.card{
-background:white;
-width:100%;
-max-width:1100px;
-padding:25px;
-border-radius:25px;
-box-shadow:0 10px 25px rgba(0,0,0,.2);
-}
-
-h1,h2,h3,p{
-text-align:center;
-color:#111;
-}
-
-.hidden{
-display:none;
-}
-
-input{
-padding:12px;
-border-radius:10px;
-border:1px solid #ccc;
-font-size:16px;
-}
-
-button{
-padding:12px 24px;
-border:none;
-border-radius:12px;
-font-size:18px;
-cursor:pointer;
-background:#0ea5e9;
-color:white;
-}
-
-.info{
-text-align:center;
-font-size:22px;
-color:#111;
-margin-bottom:20px;
-}
-
-.wrap{
-display:grid;
-grid-template-columns:repeat(3,1fr);
-gap:15px;
-margin-bottom:20px;
-}
-
-.zone{
-border:3px dashed #999;
-border-radius:15px;
-padding:10px;
-min-height:220px;
-background:#f8fafc;
-}
-
-.zone h3{
-margin-top:0;
-}
-
-.cards{
-display:flex;
-flex-wrap:wrap;
-gap:12px;
-justify-content:center;
-}
-
-.item{
-width:180px;
-background:white;
-border-radius:15px;
-overflow:hidden;
-cursor:grab;
-box-shadow:0 5px 15px rgba(0,0,0,.2);
-}
-
-.item img{
-width:100%;
-height:120px;
-object-fit:cover;
-display:block;
-}
-
-.label{
-padding:10px;
-text-align:center;
-font-weight:bold;
-color:#111;
-}
-
-.correct{
-opacity:.8;
-}
-
-.badge{
-font-size:80px;
-text-align:center;
-}
-
-@media(max-width:700px){
-.wrap{
-grid-template-columns:1fr;
-}
-.item{
-width:150px;
-}
-}
-
+body{margin:0;font-family:Vazirmatn,sans-serif;background:linear-gradient(135deg,#081b33,#0f766e);color:#fff;overflow-x:hidden}
+.bg:before,.bg:after{content:"🧬";position:fixed;font-size:120px;opacity:.08;animation:f 12s infinite alternate}
+.bg:after{right:5%;top:10%}.bg:before{left:5%;bottom:10%}
+@keyframes f{from{transform:translateY(0)}to{transform:translateY(-40px)}}
+.page{min-height:100vh;display:flex;justify-content:center;align-items:center;padding:20px}
+.card{background:#fff;color:#111;max-width:1100px;width:100%;border-radius:28px;padding:24px;box-shadow:0 20px 60px rgba(0,0,0,.35)}
+.hidden{display:none}
+.center{text-align:center}
+input,button{font-family:inherit}
+input{padding:12px;border-radius:12px;border:1px solid #ccc;width:260px}
+button{padding:12px 24px;border:none;border-radius:12px;background:#06b6d4;color:#fff;font-size:18px;cursor:pointer}
+.wrap{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.zone{min-height:220px;border:3px dashed #94a3b8;border-radius:16px;padding:10px;background:#f8fafc}
+.cards{display:flex;flex-wrap:wrap;justify-content:center;gap:12px;margin-top:20px}
+.item{width:180px;background:#fff;border-radius:16px;box-shadow:0 8px 20px rgba(0,0,0,.2);padding:12px;text-align:center;cursor:grab;transition:.25s}
+.item:hover{transform:translateY(-5px) scale(1.03)}
+.ok{box-shadow:0 0 20px #22c55e}
+.progress{height:14px;background:#e5e7eb;border-radius:99px;overflow:hidden}
+.bar{height:100%;width:0;background:#22c55e;transition:.4s}
+.medal{font-size:90px}
+@media(max-width:700px){.wrap{grid-template-columns:1fr}.item{width:145px}}
 </style>
 </head>
-
 <body>
+<div class="bg"></div>
 
 <div id="start" class="page">
-
-<div class="card">
-
+<div class="card center">
 <h1>🎮 زیست‌یار</h1>
-
 <h2>👩‍🏫 دبیر: سرکار خانم معصومه مرتجایی</h2>
-
-<h2>🏫 مدرسه فرزانگان ۱ شهریار</h2>
-
-<p>🧬 روابط بین جانداران را در دسته درست قرار دهید</p>
-
-<div style="text-align:center">
-
+<h3>🏫 مدرسه فرزانگان ۱ شهریار</h3>
+<p>روابط بین جانداران را در دسته درست قرار دهید.</p>
 <input id="student" placeholder="نام شرکت‌کننده">
-
 <br><br>
-
 <button onclick="startGame()">شروع بازی</button>
-
 </div>
-
-</div>
-
 </div>
 
 <div id="game" class="page hidden">
-
 <div class="card">
-
-<div class="info">
-⭐ <span id="score">0</span> / 8
-</div>
-
+<div class="center">⭐ <span id="score">0</span> / 8</div>
+<div class="progress"><div id="bar" class="bar"></div></div><br>
 <div class="wrap">
-
-<div class="zone" data-type="همیاری">
-<h3>🤝 همیاری</h3>
+<div class="zone" data-type="همیاری"><h3>🤝 همیاری</h3></div>
+<div class="zone" data-type="همسفرگی"><h3>🍽️ همسفرگی</h3></div>
+<div class="zone" data-type="انگلی"><h3>🪱 انگلی</h3></div>
 </div>
-
-<div class="zone" data-type="همسفرگی">
-<h3>🍽️ همسفرگی</h3>
-</div>
-
-<div class="zone" data-type="انگلی">
-<h3>🪱 انگلی</h3>
-</div>
-
-</div>
-
 <div id="cards" class="cards"></div>
-
+<div class="center" style="margin-top:20px"><button onclick="finishGame()">پایان بازی</button></div>
 </div>
-
 </div>
 
 <div id="finish" class="page hidden">
-
-<div class="card">
-
-<div id="medal" class="badge">🥉</div>
-
-<h1>گواهی پایان بازی</h1>
-
-<p id="finalText"></p>
-
+<div class="card center">
+<div id="medal" class="medal">🥇</div>
+<h1>🎉 تبریک!</h1>
+<p id="final"></p>
 </div>
-
 </div>
 
 <script>
-
-const items = [
-
-["مورچه و شته","همیاری","ant.jpg"],
-["زنبور و گل","همیاری","bee.jpg"],
-["میگوی تمیزکننده و کوسه","همیاری","cleaner.webp"],
-["گلسنگ","همیاری","lichen.webp"],
-["باکتری روده و انسان","همیاری","gut.jpg"],
-["شیر و کفتار","همسفرگی","lion.jpg"],
-["ماهی کوچک و کوسه","همسفرگی","shark.jpg"],
-["کرمک و انسان","انگلی","parasite.jpg"]
-
+const data=[
+["🐜 مورچه و شته","همیاری"],
+["🐝 زنبور و گل","همیاری"],
+["🦐 میگوی تمیزکننده و کوسه","همیاری"],
+["🍃 گلسنگ","همیاری"],
+["🦠 باکتری روده و انسان","همیاری"],
+["🦁 شیر و کفتار","همسفرگی"],
+["🐟 ماهی کوچک و کوسه","همسفرگی"],
+["🪱 کرمک و انسان","انگلی"]
 ];
-
-let score = 0;
-let studentName = "";
-
-function buildCards(){
-
-const cards = document.getElementById("cards");
-
-cards.innerHTML = "";
-
-items.forEach((it,index)=>{
-
-const d = document.createElement("div");
-
-d.className = "item";
-
-d.id = "c"+index;
-
-d.draggable = true;
-
-d.dataset.type = it[1];
-
-d.innerHTML = `
-<img src="${it[2]}">
-<div class="label">${it[0]}</div>
-`;
-
-d.addEventListener("dragstart",e=>{
-e.dataTransfer.setData("text",d.id);
+let score=0,name="";
+data.sort(()=>Math.random()-0.5);
+const cards=document.getElementById('cards');
+data.forEach((x,i)=>{
+ let d=document.createElement('div');
+ d.className='item'; d.id='c'+i; d.draggable=true; d.dataset.type=x[1];
+ d.innerHTML='<div style="font-size:48px">'+x[0].split(" ")[0]+'</div><b>'+x[0]+'</b>';
+ d.addEventListener('dragstart',e=>e.dataTransfer.setData('text',d.id));
+ cards.appendChild(d);
 });
-
-cards.appendChild(d);
-
+document.querySelectorAll('.zone').forEach(z=>{
+ z.addEventListener('dragover',e=>e.preventDefault());
+ z.addEventListener('drop',e=>{
+  e.preventDefault();
+  let el=document.getElementById(e.dataTransfer.getData('text'));
+  if(el.dataset.type===z.dataset.type){
+    if(!el.classList.contains('ok')){
+      score++;
+      document.getElementById('score').textContent=score;
+      document.getElementById('bar').style.width=(score/8*100)+'%';
+    }
+    el.classList.add('ok');
+    z.appendChild(el);
+  } else alert('❌ پاسخ نادرست');
+ });
 });
-
-}
-
-buildCards();
-
-document.querySelectorAll(".zone").forEach(zone=>{
-
-zone.addEventListener("dragover",e=>{
-e.preventDefault();
-});
-
-zone.addEventListener("drop",e=>{
-
-e.preventDefault();
-
-const id = e.dataTransfer.getData("text");
-
-const el = document.getElementById(id);
-
-if(el.dataset.type === zone.dataset.type){
-
-if(!el.classList.contains("correct")){
-
-score++;
-
-document.getElementById("score").textContent = score;
-
-}
-
-el.classList.add("correct");
-
-zone.appendChild(el);
-
-}else{
-
-alert("❌ پاسخ نادرست");
-
-}
-
-});
-
-});
-
 function startGame(){
-
-studentName =
-document.getElementById("student").value ||
-"شرکت‌کننده عزیز";
-
-document.getElementById("start").classList.add("hidden");
-
-document.getElementById("game").classList.remove("hidden");
-
+ name=document.getElementById('student').value||'شرکت‌کننده عزیز';
+ start.classList.add('hidden'); game.classList.remove('hidden');
 }
-
 function finishGame(){
-
-document.getElementById("game").classList.add("hidden");
-
-document.getElementById("finish").classList.remove("hidden");
-
-let medal = "🥉";
-
-if(score >= 6) medal = "🥈";
-
-if(score === 8) medal = "🥇";
-
-document.getElementById("medal").textContent = medal;
-
-document.getElementById("finalText").innerHTML =
-studentName +
-"<br><br>امتیاز شما: <b>" +
-score +
-" از 8</b><br><br>مدرسه فرزانگان ۱ شهریار<br>دبیر: سرکار خانم معصومه مرتجایی";
-
+ game.classList.add('hidden'); finish.classList.remove('hidden');
+ document.getElementById('medal').textContent=score===8?'🥇':score>=6?'🥈':'🥉';
+ document.getElementById('final').innerHTML='🌟 '+name+'<br><br>امتیاز شما: '+score+' از 8<br><br>آفرین! با موفقیت روابط بین جانداران را شناسایی کردید.<br><br>👩‍🏫 سرکار خانم معصومه مرتجایی<br>🏫 فرزانگان ۱ شهریار';
 }
-
 </script>
-
-</body>
-</html>
-```
+</body></html>
